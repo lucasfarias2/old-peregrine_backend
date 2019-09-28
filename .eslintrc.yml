@@ -15,3 +15,4 @@ parserOptions:
 rules:
   prettier/prettier: error
   camelcase: off
+  max-classes-per-file: off

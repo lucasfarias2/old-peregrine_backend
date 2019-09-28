@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 const { STRING, Model } = require('sequelize');
 const db = require('../db');
 
