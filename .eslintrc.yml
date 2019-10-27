@@ -16,3 +16,4 @@ rules:
   prettier/prettier: error
   camelcase: off
   max-classes-per-file: off
+  no-console: off

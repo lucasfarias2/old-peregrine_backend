@@ -7,15 +7,16 @@ User.init(
     uid: {
       type: STRING,
       allowNull: true,
-      primaryKey: true,
+      unique: true,
     },
     email: {
       type: STRING,
       allowNull: true,
+      unique: true,
     },
     name: {
       type: STRING,
-      allowNull: false,
+      allowNull: true,
     },
     phone: {
       type: STRING,

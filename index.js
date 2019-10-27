@@ -18,7 +18,7 @@ server.use(bodyParser.urlencoded({ extended: false }));
 
 server.use(Router);
 
-db.sync({ force: true }).then(() => {
+db.sync({ force: false }).then(() => {
   server.listen(port, () => {
     console.log(`Server running on ${port}`);
   });
