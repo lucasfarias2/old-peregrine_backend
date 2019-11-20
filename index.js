@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const admin = require('firebase-admin');
 const db = require('./src/db/db');
 const Router = require('./src/routes');
@@ -15,6 +16,7 @@ admin.initializeApp({
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: false }));
+server.use(cors());
 
 server.use(Router);
 
