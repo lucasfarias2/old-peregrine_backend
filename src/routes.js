@@ -7,7 +7,7 @@ const CategoriesController = require('./controllers/categories');
 const Router = express.Router();
 
 Router.get('/', (req, res) => {
-  res.send('You can query USERS, ORDERS');
+  res.send('You can query USERS, ORDERS, SERVICES, CATEGORIES');
 });
 
 Router.use('/users', UsersController);
