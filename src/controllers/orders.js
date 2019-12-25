@@ -15,7 +15,7 @@ OrdersController.get('/', async (req, res) => {
 OrdersController.post('/', async (req, res) => {
   try {
     const created = await Order.create({
-      name: req.body.name,
+      title: req.body.title,
       description: req.body.description,
       service_id: req.body.service_id,
       owner_id: req.body.owner_id,
