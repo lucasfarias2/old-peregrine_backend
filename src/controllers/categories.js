@@ -16,6 +16,7 @@ CategoriesController.post('/', async (req, res) => {
   try {
     const created = await Category.create({
       name: req.body.name,
+      disabled: req.body.disabled || false,
     });
     res.send(created);
   } catch (e) {
@@ -23,11 +24,11 @@ CategoriesController.post('/', async (req, res) => {
   }
 });
 
-CategoriesController.delete('/:id', async (req, res) => {
+CategoriesController.get('/remove/:id', async (req, res) => {
   try {
     const found = await Category.findByPk(req.params.id);
-    if (found) found.destroy();
-    res.send(`Category ${found.name} successfully deleted.`);
+    if (found) found.update({ disabled: true });
+    res.send(`Category ${found.name} successfully disabled.`);
   } catch (e) {
     res.status(400).send(e.name);
   }
