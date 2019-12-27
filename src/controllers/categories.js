@@ -23,4 +23,14 @@ CategoriesController.post('/', async (req, res) => {
   }
 });
 
+CategoriesController.delete('/:id', async (req, res) => {
+  try {
+    const found = await Category.findByPk(req.params.id);
+    if (found) found.destroy();
+    res.send(`Category ${found.name} successfully deleted.`);
+  } catch (e) {
+    res.status(400).send(e.name);
+  }
+});
+
 module.exports = CategoriesController;
