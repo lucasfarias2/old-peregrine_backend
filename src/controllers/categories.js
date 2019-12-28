@@ -39,6 +39,7 @@ CategoriesController.put('/:id', async (req, res) => {
     if (found)
       await found.update({
         name: req.body.name,
+        // TODO: pasar el valor default al modelo
         disabled: req.body.disabled || false,
       });
     res.send(`Category ${found.name} successfully edited.`);
