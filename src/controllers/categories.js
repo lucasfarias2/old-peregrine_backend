@@ -5,7 +5,9 @@ const CategoriesController = express.Router();
 
 CategoriesController.get('/', async (req, res) => {
   try {
-    const found = await Category.findAll();
+    const found = await Category.findAll({
+      order: [['id', 'ASC']],
+    });
     res.send(found);
   } catch (e) {
     res.status(400).send(e);
