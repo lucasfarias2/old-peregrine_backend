@@ -1,5 +1,5 @@
 const express = require('express');
-const Order = require('../db/models/order');
+const { Order } = require('../db/models');
 
 const OrdersController = express.Router();
 

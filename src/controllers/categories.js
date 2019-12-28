@@ -1,5 +1,5 @@
 const express = require('express');
-const Category = require('../db/models/category');
+const { Category, DeletedCategory } = require('../db/models');
 
 const CategoriesController = express.Router();
 
@@ -24,11 +24,12 @@ CategoriesController.post('/', async (req, res) => {
   }
 });
 
-CategoriesController.get('/remove/:id', async (req, res) => {
+CategoriesController.delete('/:id', async (req, res) => {
   try {
     const found = await Category.findByPk(req.params.id);
-    if (found) found.update({ disabled: true });
-    res.send(`Category ${found.name} successfully disabled.`);
+    if (found) await found.destroy();
+    DeletedCategory.create(found);
+    res.send(`Category ${found.name} successfully deleted.`);
   } catch (e) {
     res.status(400).send(e.name);
   }

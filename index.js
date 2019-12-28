@@ -20,7 +20,7 @@ server.use(cors());
 
 server.use(Router);
 
-db.sync({ force: false }).then(() => {
+db.sync({ force: true }).then(() => {
   server.listen(port, () => {
     console.log(`Server running on ${port}`);
   });

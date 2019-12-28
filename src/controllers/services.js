@@ -1,5 +1,5 @@
 const express = require('express');
-const Service = require('../db/models/service');
+const { Service } = require('../db/models');
 
 const ServicesController = express.Router();
 
