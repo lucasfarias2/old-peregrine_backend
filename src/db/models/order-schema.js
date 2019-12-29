@@ -23,6 +23,7 @@ module.exports = {
   },
   status: {
     type: STRING,
-    allowNull: false,
+    allowNull: true,
+    defaultValue: 'REQUESTED',
   },
 };

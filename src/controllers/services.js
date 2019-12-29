@@ -10,6 +10,7 @@ ServicesController.get('/', async (req, res) => {
     });
     res.send(found);
   } catch (e) {
+    console.error(e);
     res.status(400).send(e);
   }
 });
@@ -23,7 +24,8 @@ ServicesController.post('/', async (req, res) => {
     });
     res.send(created);
   } catch (e) {
-    res.status(400).send(e.name);
+    console.error(e);
+    res.status(400).send(e);
   }
 });
 
@@ -32,6 +34,7 @@ ServicesController.get('/:id', async (req, res) => {
     const found = await Service.findByPk(req.params.id);
     res.send(found);
   } catch (e) {
+    console.error(e);
     res.status(400).send(e);
   }
 });
@@ -47,7 +50,8 @@ ServicesController.put('/:id', async (req, res) => {
       });
     res.send(`Service ${found.name} successfully edited.`);
   } catch (e) {
-    res.status(400).send(e.name);
+    console.error(e);
+    res.status(400).send(e);
   }
 });
 
@@ -59,7 +63,7 @@ ServicesController.delete('/:id', async (req, res) => {
     res.send(`Service ${found.name} successfully deleted.`);
   } catch (e) {
     console.error(e);
-    res.status(400).send(e.name);
+    res.status(400).send(e);
   }
 });
 

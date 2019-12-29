@@ -10,6 +10,7 @@ CountriesController.get('/', async (req, res) => {
     });
     res.send(found);
   } catch (e) {
+    console.error(e);
     res.status(400).send(e);
   }
 });
@@ -25,7 +26,8 @@ CountriesController.post('/', async (req, res) => {
     });
     res.send(created);
   } catch (e) {
-    res.status(400).send(e.name);
+    console.error(e);
+    res.status(400).send(e);
   }
 });
 
@@ -34,6 +36,7 @@ CountriesController.get('/:id', async (req, res) => {
     const found = await Country.findByPk(req.params.id);
     res.send(found);
   } catch (e) {
+    console.error(e);
     res.status(400).send(e);
   }
 });
@@ -51,7 +54,8 @@ CountriesController.put('/:id', async (req, res) => {
       });
     res.send(`Country ${found.name} successfully edited.`);
   } catch (e) {
-    res.status(400).send(e.name);
+    console.error(e);
+    res.status(400).send(e);
   }
 });
 
@@ -62,7 +66,8 @@ CountriesController.delete('/:id', async (req, res) => {
     DeletedCountry.create({ ...found.dataValues });
     res.send(`Country ${found.name} successfully deleted.`);
   } catch (e) {
-    res.status(400).send(e.name);
+    console.error(e);
+    res.status(400).send(e);
   }
 });
 

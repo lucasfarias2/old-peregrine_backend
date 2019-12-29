@@ -10,6 +10,7 @@ CategoriesController.get('/', async (req, res) => {
     });
     res.send(found);
   } catch (e) {
+    console.error(e);
     res.status(400).send(e);
   }
 });
@@ -22,7 +23,8 @@ CategoriesController.post('/', async (req, res) => {
     });
     res.send(created);
   } catch (e) {
-    res.status(400).send(e.name);
+    console.error(e);
+    res.status(400).send(e);
   }
 });
 
@@ -31,6 +33,7 @@ CategoriesController.get('/:id', async (req, res) => {
     const found = await Category.findByPk(req.params.id);
     res.send(found);
   } catch (e) {
+    console.error(e);
     res.status(400).send(e);
   }
 });
@@ -45,7 +48,8 @@ CategoriesController.put('/:id', async (req, res) => {
       });
     res.send(`Category ${found.name} successfully edited.`);
   } catch (e) {
-    res.status(400).send(e.name);
+    console.error(e);
+    res.status(400).send(e);
   }
 });
 
@@ -56,7 +60,8 @@ CategoriesController.delete('/:id', async (req, res) => {
     DeletedCategory.create({ ...found.dataValues });
     res.send(`Category ${found.name} successfully deleted.`);
   } catch (e) {
-    res.status(400).send(e.name);
+    console.error(e);
+    res.status(400).send(e);
   }
 });
 
