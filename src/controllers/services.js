@@ -58,6 +58,7 @@ ServicesController.delete('/:id', async (req, res) => {
     DeletedService.create({ ...found.dataValues });
     res.send(`Service ${found.name} successfully deleted.`);
   } catch (e) {
+    console.error(e);
     res.status(400).send(e.name);
   }
 });
