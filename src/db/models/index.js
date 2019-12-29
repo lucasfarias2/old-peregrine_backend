@@ -5,6 +5,7 @@ const {
   orderSchema,
   serviceSchema,
   userSchema,
+  countrySchema,
 } = require('./schemas');
 
 class User extends Model {}
@@ -34,6 +35,15 @@ DeletedCategory.init(categorySchema, {
   modelName: 'deleted_category',
 });
 
+class Country extends Model {}
+Country.init(countrySchema, { sequelize: db, modelName: 'country' });
+
+class DeletedCountry extends Model {}
+DeletedCountry.init(countrySchema, {
+  sequelize: db,
+  modelName: 'deleted_country',
+});
+
 module.exports = {
   User,
   DeletedUser,
@@ -43,4 +53,6 @@ module.exports = {
   DeletedService,
   Category,
   DeletedCategory,
+  Country,
+  DeletedCountry,
 };
