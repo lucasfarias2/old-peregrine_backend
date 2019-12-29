@@ -20,6 +20,7 @@ module.exports = {
   },
   disabled: {
     type: BOOLEAN,
-    allowNull: false,
+    allowNull: true,
+    defaultValue: false,
   },
 };

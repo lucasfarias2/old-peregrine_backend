@@ -8,5 +8,6 @@ module.exports = {
   disabled: {
     type: BOOLEAN,
     allowNull: true,
+    defaultValue: false,
   },
 };

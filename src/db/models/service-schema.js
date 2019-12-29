@@ -1,4 +1,4 @@
-const { STRING } = require('sequelize');
+const { BOOLEAN, STRING } = require('sequelize');
 
 module.exports = {
   name: {
@@ -8,5 +8,10 @@ module.exports = {
   category_id: {
     type: STRING,
     allowNull: false,
+  },
+  disabled: {
+    type: BOOLEAN,
+    allowNull: true,
+    defaultValue: false,
   },
 };

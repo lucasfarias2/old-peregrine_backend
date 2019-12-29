@@ -18,7 +18,7 @@ CategoriesController.post('/', async (req, res) => {
   try {
     const created = await Category.create({
       name: req.body.name,
-      disabled: req.body.disabled || false,
+      disabled: req.body.disabled,
     });
     res.send(created);
   } catch (e) {
