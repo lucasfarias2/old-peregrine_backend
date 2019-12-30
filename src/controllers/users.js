@@ -34,6 +34,7 @@ UsersController.post('/', async (req, res) => {
         phone: createdOnFirebase.phoneNumber,
         disabled: createdOnFirebase.disabled,
         access: req.body.access,
+        country_id: req.body.country_id,
       });
 
       res.send(created);
@@ -78,6 +79,7 @@ UsersController.put('/:id', async (req, res) => {
         phone: updatedUser.phoneNumber,
         disabled: updatedUser.disabled,
         access: req.body.access,
+        country_id: req.body.country_id,
       });
     }
     res.send(`User ${found.name} successfully edited.`);

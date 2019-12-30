@@ -33,4 +33,8 @@ module.exports = {
     allowNull: true,
     defaultValue: 'CUSTOMER',
   },
+  country_id: {
+    type: STRING,
+    allowNull: false,
+  },
 };

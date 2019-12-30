@@ -18,6 +18,10 @@ module.exports = {
     type: STRING,
     allowNull: false,
   },
+  phone_code: {
+    type: STRING,
+    allowNull: false,
+  },
   disabled: {
     type: BOOLEAN,
     allowNull: true,

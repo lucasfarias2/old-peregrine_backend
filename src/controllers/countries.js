@@ -22,6 +22,7 @@ CountriesController.post('/', async (req, res) => {
       name: req.body.name,
       locale: req.body.locale,
       currency_id: req.body.currency_id,
+      phone_code: req.body.phone_code,
       disabled: req.body.disabled,
     });
     res.send(created);
@@ -50,6 +51,7 @@ CountriesController.put('/:id', async (req, res) => {
         code: req.body.code,
         locale: req.body.locale,
         currency_id: req.body.currency_id,
+        phone_code: req.body.phone_code,
         disabled: req.body.disabled,
       });
     res.send(`Country ${found.name} successfully edited.`);
