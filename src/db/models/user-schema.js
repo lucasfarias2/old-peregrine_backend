@@ -1,26 +1,36 @@
-const { STRING } = require('sequelize');
+const { BOOLEAN, STRING } = require('sequelize');
 
 module.exports = {
   uid: {
     type: STRING,
-    allowNull: true,
-    unique: true,
+    allowNull: false,
+    primaryKey: true,
   },
   email: {
     type: STRING,
     allowNull: true,
     unique: true,
   },
+  email_verified: {
+    type: BOOLEAN,
+    allowNull: false,
+  },
   name: {
     type: STRING,
-    allowNull: true,
+    allowNull: false,
   },
   phone: {
     type: STRING,
     allowNull: true,
   },
+  disabled: {
+    type: BOOLEAN,
+    allowNull: true,
+    defaultValue: false,
+  },
   access: {
     type: STRING,
-    allowNull: false,
+    allowNull: true,
+    defaultValue: 'CUSTOMER',
   },
 };

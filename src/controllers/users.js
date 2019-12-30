@@ -1,48 +1,108 @@
 const express = require('express');
-const { User } = require('../db/models');
+const firebaseAdmin = require('firebase-admin');
+const { User, DeletedUser } = require('../db/models');
 
 const UsersController = express.Router();
 
 UsersController.get('/', async (req, res) => {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll({ order: [['createdAt', 'ASC']] });
     res.send(users);
   } catch (e) {
+    console.error(e);
     res.status(400).send(e);
   }
 });
 
 UsersController.post('/', async (req, res) => {
   try {
-    const created = await User.create({
-      uid: req.body.uid,
+    const createdOnFirebase = await firebaseAdmin.auth().createUser({
       email: req.body.email,
-      name: req.body.name,
-      phone: req.body.phone,
-      access: req.body.access || 'user',
+      emailVerified: true,
+      phoneNumber: req.body.phone,
+      password: req.body.password,
+      displayName: req.body.name,
+      disabled: req.body.disabled,
     });
-    res.send(created);
-  } catch (e) {
-    res.status(400).send(e.name);
-  }
-});
 
-UsersController.post('/auth', async (req, res) => {
-  try {
-    const userToken = req.headers['X-User-Token'];
-    const userUid = req.headers['X-User-uid'];
+    if (createdOnFirebase) {
+      const created = await User.create({
+        uid: createdOnFirebase.uid,
+        email: createdOnFirebase.email,
+        email_verified: createdOnFirebase.emailVerified,
+        name: createdOnFirebase.displayName,
+        phone: createdOnFirebase.phoneNumber,
+        disabled: createdOnFirebase.disabled,
+        access: req.body.access,
+      });
 
-    // find user in our db by uuid
-    // not found? so create it
-    // found? return OK
-
-    if (userToken && userUid) {
-      res.send('received: ', userToken, userUid);
-    } else {
-      res.sendStatus(404);
+      res.send(created);
     }
   } catch (e) {
+    console.error(e);
     res.status(400).send(e);
   }
 });
+
+UsersController.get('/:id', async (req, res) => {
+  try {
+    const found = await User.findByPk(req.params.id);
+    res.send(found);
+  } catch (e) {
+    console.error(e);
+    res.status(400).send(e);
+  }
+});
+
+UsersController.put('/:id', async (req, res) => {
+  try {
+    const found = await User.findByPk(req.params.id);
+
+    if (found) {
+      const data = {
+        email: req.body.email,
+        phoneNumber: req.body.phone,
+        displayName: req.body.name,
+        disabled: req.body.disabled,
+      };
+
+      if (req.body.password) data.password = req.body.password;
+
+      const updatedUser = await firebaseAdmin
+        .auth()
+        .updateUser(req.params.id, data);
+
+      await found.update({
+        email: updatedUser.email,
+        name: updatedUser.displayName,
+        phone: updatedUser.phoneNumber,
+        disabled: updatedUser.disabled,
+        access: req.body.access,
+      });
+    }
+    res.send(`User ${found.name} successfully edited.`);
+  } catch (e) {
+    console.error(e);
+    res.status(400).send(e);
+  }
+});
+
+UsersController.delete('/:id', async (req, res) => {
+  try {
+    const found = await User.findByPk(req.params.id);
+
+    if (found) {
+      await firebaseAdmin.auth().deleteUser(req.params.id);
+
+      await found.destroy();
+    }
+
+    DeletedUser.create({ ...found.dataValues });
+    res.send(`User ${found.name} successfully deleted.`);
+  } catch (e) {
+    console.error(e);
+    res.status(400).send(e);
+  }
+});
+
 module.exports = UsersController;
