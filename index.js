@@ -7,11 +7,11 @@ const Router = require('./src/routes');
 
 const server = express();
 const port = process.env.port || 3000;
-const serviceAccount = require('./peregrine-app-f835e-firebase-adminsdk-docg7-864e225d16.json');
+const serviceAccount = require('./peregrine-app-users-firebase-adminsdk-1dxjt-846cdc855a.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://peregrine-app-f835e.firebaseio.com',
+  databaseURL: 'https://peregrine-app-users.firebaseio.com',
 });
 
 server.use(bodyParser.json());
